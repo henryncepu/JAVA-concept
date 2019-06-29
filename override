@@ -1,0 +1,105 @@
+override重写是子类对父类的允许访问的方法的实现过程进行重新编写, 返回值和形参都不能改变。即外壳不变，核心重写
+class Animal{
+   public void move(){
+      System.out.println("动物可以移动");
+   }
+}
+ 
+class Dog extends Animal{
+   public void move(){
+      System.out.println("狗可以跑和走");#  dog 子类调用了父类的move methods
+   }
+}
+ 
+public class TestDog{
+   public static void main(String args[]){
+      Animal a = new Animal(); // Animal 对象
+      Animal b = new Dog(); // #虽然在Animal类里      Dog 对象
+ 
+      a.move();// 执行 Animal 类的方法
+ 
+      b.move();//#，但执行 Dog 类的方法
+   }
+}
+
+动物可以移动
+狗可以跑和走
+
+class Animal{
+   public void move(){
+      System.out.println("动物可以移动");
+   }
+}
+ 
+class Dog extends Animal{
+   public void move(){
+      System.out.println("狗可以跑和走");
+   }
+   public void bark(){
+      System.out.println("狗可以吠叫");
+   }
+}
+ 
+public class TestDog{
+   public static void main(String args[]){
+      Animal a = new Animal(); // Animal 对象
+      Animal b = new Dog(); // Dog 对象
+ 
+      a.move();// 执行 Animal 类的方法
+      b.move();//执行 Dog 类的方法
+      b.bark();#由于父类没有bark方法，所以没法调用
+   }
+}
+
+TestDog.java:30: cannot find symbol
+symbol  : method bark()
+location: class Animal
+                b.bark();
+                 ^
+                 
+方法的重写规则：
+1 重写方法中的所有参数必须与被重写方法的相同
+2 子类的访问权限要不得小于父类中被重写的方法：父类一个方法为public 则子类不能为protected
+3 申明是final的方法不能被重写
+4 申明是static的方法不能被重写，但能够再次被申明
+5 在同一个package中，子类可以重写父类除private和final的所有方法；
+不在同一package，子类只能重写public和protected的非final方法
+
+Super的调用主要在于在子类中使用父类的被重写方法时
+class Animal{
+   public void move(){
+      System.out.println("动物可以移动");
+   }
+}
+ 
+class Dog extends Animal{
+   public void move(){
+      super.move(); // 应用super类的方法#相当于不需要new一个 animal，直接用子类的就可以输出结果
+      System.out.println("狗可以跑和走");
+   }
+}
+ 
+public class TestDog{
+   public static void main(String args[]){
+ 
+      Animal b = new Dog(); // Dog 对象
+      b.move(); //执行 Dog类的方法
+ 
+   }
+}
+动物可以移动
+狗可以跑和走
+
+重载(overloading) 是在一个类里面，方法名字相同，而参数不同。返回类型可以相同也可以不同。
+每个重载的方法（或者构造函数）都必须有一个独一无二的参数类型列表。
+重载规则:
+
+1 被重载的方法必须改变参数列表(参数个数或类型不一样)；
+2 被重载的方法可以改变返回类型；
+3 被重载的方法可以改变访问修饰符；
+4 被重载的方法可以声明新的或更广的检查异常；
+5 方法能够在同一个类中或者在一个子类中被重载。
+6 无法以返回值类型作为重载函数的区分标准。
+
+重载与重写 ：
+重写的方法名和参数名均相同 ， 重载的 方法名相同，参数名不相同
